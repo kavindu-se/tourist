@@ -19,9 +19,7 @@ export default function DestinationsPage() {
           description="Search and filter destinations by season and interest. Each stop includes ideal timing, attractions, and recommended duration."
         />
       </Reveal>
-      <Reveal>
-        <DestinationBrowser />
-      </Reveal>
+      <DestinationBrowser />
     </section>
   );
 }

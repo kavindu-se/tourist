@@ -21,10 +21,8 @@ export default function ExperiencesPage() {
         />
       </Reveal>
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {experiences.map((item, i) => (
-          <Reveal key={item.name} delay={i * 0.04}>
-            <ExperienceCard item={item} />
-          </Reveal>
+        {experiences.map((item) => (
+          <ExperienceCard key={item.name} item={item} />
         ))}
       </div>
     </section>

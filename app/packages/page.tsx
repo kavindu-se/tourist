@@ -19,9 +19,7 @@ export default function PackagesPage() {
           description="Browse sample packages with transparent inclusions and clear pricing, then customize for your travel dates."
         />
       </Reveal>
-      <Reveal>
-        <PackageBrowser />
-      </Reveal>
+      <PackageBrowser />
     </section>
   );
 }
