@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,8 +17,10 @@ const links = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const solidNav = scrolled || pathname !== "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 28);
@@ -27,20 +30,20 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all", scrolled ? "bg-[var(--bg)]/95 shadow-sm backdrop-blur-lg" : "bg-transparent")}>
+    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all", solidNav ? "bg-[var(--bg)]/95 shadow-sm backdrop-blur-lg" : "bg-transparent")}>
       <div className="mx-auto flex h-16 w-[min(1180px,92vw)] items-center justify-between">
-        <Link href="/" className={cn("text-lg font-bold tracking-wide", scrolled ? "text-[var(--ink)]" : "text-white")}>Serene Sri Lanka</Link>
+        <Link href="/" className={cn("text-lg font-bold tracking-wide", solidNav ? "text-[var(--ink)]" : "text-white")}>Serene Sri Lanka</Link>
 
         <nav className="hidden items-center gap-6 md:flex">
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className={cn("text-sm font-medium transition", scrolled ? "text-[var(--ink)] hover:text-[var(--ocean)]" : "text-white/90 hover:text-white")}>
+            <Link key={link.href} href={link.href} className={cn("text-sm font-medium transition", solidNav ? "text-[var(--ink)] hover:text-[var(--ocean)]" : "text-white/90 hover:text-white")}>
               {link.label}
             </Link>
           ))}
           <Link href="/contact"><Button size="sm">Plan Your Trip</Button></Link>
         </nav>
 
-        <button className={cn("md:hidden", scrolled ? "text-[var(--ink)]" : "text-white")} onClick={() => setOpen((v) => !v)} aria-label="Toggle navigation" aria-expanded={open}>
+        <button className={cn("md:hidden", solidNav ? "text-[var(--ink)]" : "text-white")} onClick={() => setOpen((v) => !v)} aria-label="Toggle navigation" aria-expanded={open}>
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
